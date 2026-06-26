@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Batalha Naval do Bugs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&family=Nunito+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="background-orbs" aria-hidden="true"></div>
+
+    <header class="app-header">
+        <div class="brand">
+            <p class="eyebrow">Missão Tática</p>
+            <h1>Batalha Naval do Bugs</h1>
+        </div>
+
+        <div class="header-actions">
+            <button
+                id="btnHamburger"
+                class="icon-btn"
+                type="button"
+                aria-label="Abrir menu"
+                aria-controls="menuDropdown"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+            <div id="menuDropdown" class="dropdown hidden" role="menu">
+                <button id="menuToggleMusica" class="dropdown-item" type="button" role="menuitem">🔊 Música: Ligar</button>
+                <button id="menuInstrucao" class="dropdown-item" type="button" role="menuitem">📘 Instruções</button>
+                <button id="menuReiniciar" class="dropdown-item hidden" type="button" role="menuitem">🔄 Reiniciar rodada</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section id="setupPanel" class="panel panel-setup">
+            <h2>Configuração da Partida</h2>
+            <p class="panel-text">
+                Escolha tamanho, nível e munição. O tabuleiro e a interface se adaptam para jogar bem no computador e no celular.
+            </p>
+
+            <div class="form-grid">
+                <label class="field" for="tamanho">
+                    <span>Tamanho do tabuleiro</span>
+                    <input type="number" id="tamanho" min="5" max="12" value="8" />
+                </label>
+
+                <label class="field" for="nivel">
+                    <span>Nível</span>
+                    <select id="nivel">
+                        <option value="facil">Fácil</option>
+                        <option value="medio" selected>Médio</option>
+                        <option value="dificil">Difícil</option>
+                    </select>
+                </label>
+
+                <label class="field" for="municao">
+                    <span>Munição</span>
+                    <input type="number" id="municao" min="1" max="99" value="22" />
+                </label>
+            </div>
+
+            <button id="btnIniciar" class="btn btn-primary" type="button">Iniciar partida</button>
+        </section>
+
+        <section id="gamePanel" class="panel panel-game hidden">
+            <div class="hud" aria-live="polite">
+                <article class="hud-card">
+                    <p>Munição</p>
+                    <strong id="hudMunicao">0</strong>
+                </article>
+                <article class="hud-card">
+                    <p>Navios restantes</p>
+                    <strong id="hudNavios">0</strong>
+                </article>
+                <article class="hud-card">
+                    <p>Acertos</p>
+                    <strong id="hudAcertos">0</strong>
+                </article>
+                <article class="hud-card">
+                    <p>Erros</p>
+                    <strong id="hudErros">0</strong>
+                </article>
+            </div>
+
+            <p id="mensagemStatus" class="status-message">Inicie a partida para começar o combate.</p>
+
+            <div id="tabuleiroWrap" class="board-wrap">
+                <div id="tabuleiro" role="grid" aria-label="Tabuleiro de batalha naval"></div>
+            </div>
+
+            <div class="game-actions">
+                <button id="btnNovoJogo" class="btn btn-secondary" type="button">Nova partida</button>
+                <button id="btnVoltarMenu" class="btn btn-secondary" type="button">Voltar ao menu</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="instrucoes" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="instrucoesTitulo">
+        <div class="modal-card">
+            <h2 id="instrucoesTitulo">Como jogar</h2>
+            <ol>
+                <li>Defina tamanho, nível e munição no menu.</li>
+                <li>Clique em uma célula para lançar um míssil.</li>
+                <li>Acerto revela um navio; erro revela água agitada.</li>
+                <li>Vença destruindo toda a frota antes da munição acabar.</li>
+            </ol>
+            <p><strong>Frota por nível:</strong> Fácil (6 navios), Médio (9 navios), Difícil (12 navios).</p>
+            <p class="modal-note">Dica: quanto maior o tabuleiro, mais importante equilibrar munição e precisão.</p>
+            <button id="fecharInstrucoes" class="btn btn-primary btn-small" type="button">Fechar</button>
+        </div>
+    </div>
+
+    <div id="videoOverlay" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="videoTitulo">
+        <div class="modal-card video-card">
+            <h2 id="videoTitulo">Resultado da rodada</h2>
+            <video id="videoResultado" playsinline preload="auto"></video>
+            <div class="video-actions">
+                <button id="btnPularVideo" class="btn btn-secondary btn-small" type="button">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="music.js"></script>
+    <script src="instr.js"></script>
+</body>
+</html>
